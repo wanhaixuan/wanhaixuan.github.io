@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小兔鲜儿 - 完整版</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== 所有样式放在这里 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        ul, ol {
+            list-style: none;
+        }
+        .wrapper {
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        /* 快捷导航 */
+        .shortcut {
+            background-color: #2c2c2c;
+            height: 38px;
+            line-height: 38px;
+            font-size: 12px;
+        }
+        .shortcut ul {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        .shortcut ul li a {
+            color: #e0e0e0;
+        }
+        .shortcut ul li a:hover {
+            color: #035317a9;
+        }
+        .shortcut ul li:first-child a {
+            color: #069429a9;
+        }
+        /* 头部 */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 20px 0;
+        }
+        .logo h1 a {
+           display: block;
+           width: 160px;
+           height: 50px;
+           background-image: url('images/logo.png');
+           background-size: contain;
+           background-repeat: no-repeat;
+           background-position: center;
+           text-indent: -9999px;  /* 隐藏文字，只显示图片 */
+}        .nav ul {
+            display: flex;
+            gap: 28px;
+        }
+        .nav ul li a {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .nav ul li a:hover {
+            color: #3bbd6d;
+            border-bottom: 2px solid #3bbd6d;
+        }
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 40px;
+            padding: 5px 15px;
+            width: 240px;
+        }
+        .search i {
+            color: #999;
+            margin-right: 8px;
+        }
+        .search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+        }
+        .cart a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f5f5f5;
+            padding: 8px 16px;
+            border-radius: 40px;
+        }
+        .cart i:last-child {
+            background-color: #069429a9;
+            color: white;
+            font-style: normal;
+            padding: 0 6px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+       /* banner */
+.banner {
+    background-color: #e9f0e6;
+    margin-bottom: 40px;
+    padding: 20px 0;
+}
+.banner .wrapper {
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+.subnav {
+    width: 240px;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    border-radius: 8px;
+    padding: 12px 0;
+    position: relative;
+    z-index: 10;
+}
+.subnav li {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+.subnav li:hover {
+    background-color: rgba(59, 189, 109, 0.8);
+}
+.subnav li a {
+    color: #fff;
+    font-size: 14px;
+}
+.subnav li a h4 {
+    font-size: 15px;
+    font-weight: 600;
+    display: inline;
+    margin-right: 15px;
+}
+.pic {
+    flex: 1;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+}
+.pic li {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+.pic li.active {
+    opacity: 1;
+    z-index: 2;
+}
+.pic li img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+}
+.banner ol {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 15;
+}
+.banner ol li {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.banner ol li.active {
+    background-color: #3bbd6d;
+    width: 24px;
+}
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+}
+.arrow-left {
+    left: 260px;   /* 侧边栏宽240 + 间距20 = 260，箭头位于轮播图左边缘 */
+}
+.arrow-right {
+    right: 20px;
+}
+        /* 通用标题 */
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .title h3 {
+            font-size: 28px;
+            border-left: 6px solid #3bbd6d;
+            padding-left: 15px;
+        }
+        .title p {
+            color: #888;
+            margin-left: 20px;
+            flex: 1;
+        }
+        .title ul {
+            display: flex;
+            gap: 24px;
+        }
+        .all {
+            color: #999;
+        }
+        /* 商品卡片 */
+        .goods .bd, .recommend {
+            display: flex;
+            gap: 20px;
+        }
+        .goods .bd li, .recommend li {
+            background: #fff;
+            border-radius: 16px;
+            flex: 1;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .price p:last-child {
+            color: #069429a9;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .add-cart-btn {
+            background: #3bbd6d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 5px 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        /* 品牌 */
+        .brand {
+            background: #fff;
+            padding: 20px 0;
+            margin: 40px 0;
+        }
+        .brand .jiantou {
+            display: flex;
+            gap: 12px;
+        }
+        .brand .jiantou span {
+            width: 32px;
+            height: 32px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        #brandList {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+        }
+        #brandList li {
+            flex: 0 0 200px;
+        }
+        /* 生鲜服装区块 */
+        .content {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .left {
+            flex: 0 0 280px;
+        }
+        .right {
+            flex: 1;
+        }
+        .right ul {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .right ul li {
+            background: #fff;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+        }
+        /* 专题 */
+        .topic ul {
+            display: flex;
+            gap: 30px;
+        }
+        .topic ul li {
+            flex: 1;
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .topic ul li div {
+            padding: 16px;
+            display: flex;
+            justify-content: space-around;
+        }
+        /* 底部 */
+     /* 底部 */
+.footer {
+    background: #ffffff;
+    color: #000000;
+    margin-top: 40px;
+    padding: 40px 0 20px;
+}
+.service ul {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+.service ul li h5 {
+    font-size: 18px;
+    color: #000;
+}
+.help {
+    display: flex;
+    justify-content: space-between;
+}
+.help dl {
+    width: 160px;
+}
+.help dt {
+    color: #000;
+    margin-bottom: 16px;
+}
+.help dd a {
+    color: #333;
+    font-size: 13px;
+}
+.help dd a:hover {
+    color: #3bbd6d;
+}
+.help .right ul {
+    display: flex;
+    gap: 24px;
+}
+.help .right ul li {
+    text-align: center;
+}
+.help .right ul li img {
+    width: 90px;
+    height: 90px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+.copyright {
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 24px;
+    margin-top: 30px;
+    font-size: 12px;
+}
+.copyright a {
+    color: #333;
+}
+.copyright a:hover {
+    color: #3bbd6d;
+}
+        @media (max-width: 1200px) {
+            .wrapper { width: 96%; }
+            .right ul { grid-template-columns: repeat(3,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 快捷导航 -->
+<div class="shortcut">
+    <div class="wrapper">
+        <ul>
+            <li><a href="#">请先登录</a></li>
+            <li><a href="#">免费注册</a></li>
+            <li><a href="#">我的订单</a></li>
+            <li><a href="#">会员中心</a></li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">在线客服</a></li>
+            <li><a href="#"><i class="fas fa-mobile-alt"></i> 手机版</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 头部 -->
+<div class="header wrapper">
+    <div class="logo"><h1><a href="#">小兔鲜儿</a></h1></div>
+    <div class="nav">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">生鲜</a></li>
+            <li><a href="#">美食</a></li>
+            <li><a href="#">餐厨</a></li>
+            <li><a href="#">电器</a></li>
+            <li><a href="#">家居</a></li>
+            <li><a href="#">洗护</a></li>
+            <li><a href="#">孕婴</a></li>
+            <li><a href="#">服装</a></li>
+        </ul>
+    </div>
+    <div class="search">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="24215220108万海璇">
+    </div>
+    <div class="cart">
+        <a href="#">
+            <i class="fas fa-shopping-cart"></i>
+            <i id="cartCount">22</i>
+        </a>
+    </div>
+</div>
+
+<!-- Banner -->
+<div class="banner">
+    <div class="wrapper">
+        <ul class="subnav">
+            <li><a href="#"><h4>生鲜果蔬</h4></a><a href="#">水果</a><a href="#">蔬菜</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>美食推荐</h4></a><a href="#">面包</a><a href="#">干果</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>数码电子</h4></a><a href="#">手机</a><a href="#">电脑</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>家庭电器</h4></a><a href="#">电视</a><a href="#">冰箱</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>厨房用品</h4></a><a href="#">厨房电器</a><a href="#">餐具</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>居家生活</h4></a><a href="#">床品</a><a href="#">四件套</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>洗护美妆</h4></a><a href="#">洗发</a><a href="#">洁面</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>孕婴用品</h4></a><a href="#">奶粉</a><a href="#">玩具</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>服饰穿搭</h4></a><a href="#">女装</a><a href="#">男装</a><i class="fas fa-chevron-right"></i></li>
+            <li><a href="#"><h4>日用杂货</h4></a><a href="#">户外</a><a href="#">图书</a><i class="fas fa-chevron-right"></i></li>
+        </ul>
+        <ul class="pic" id="bannerPic">
+            <li class="active"><img src="./images/banner1.png" alt=""></li>
+            <li><img src="./images/banner_1.png" alt=""></li>
+            <li><img src="./images/banner_3.png" alt=""></li>
+        </ul>
+        <ol id="dots">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+        </ol>
+        <div class="arrow arrow-left" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+        <div class="arrow arrow-right" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+    </div>
+</div>
+
+<!-- 新鲜好物 & 人气推荐 -->
+<div class="goods wrapper">
+    <div class="title"><h3>新鲜好物</h3><p>新鲜出炉 品质靠谱</p><a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a></div>
+    <ul class="bd">
+        <li><img src="./images/goods1.png" alt=""><div class="price"><p><a href="#">KN95级口罩</a></p><p>￥79</p><button class="add-cart-btn" data-name="KN95口罩" data-price="79">加入购物车</button></div></li>
+        <li><img src="./images/goods2.png" alt=""><div class="price"><p><a href="#">紫檀普洱茶盒</a></p><p>￥566</p><button class="add-cart-btn" data-name="普洱茶盒" data-price="566">加入购物车</button></div></li>
+        <li><img src="./images/goods3.png" alt=""><div class="price"><p><a href="#">高颜值记事本</a></p><p>￥58</p><button class="add-cart-btn" data-name="记事本" data-price="58">加入购物车</button></div></li>
+        <li><img src="./images/goods4.png" alt=""><div class="price"><p><a href="#">科技布沙发</a></p><p>￥3579</p><button class="add-cart-btn" data-name="布艺沙发" data-price="3579">加入购物车</button></div></li>
+    </ul>
+    <div class="title"><h3>人气推荐</h3><p>人气爆款 不容错过</p><a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a></div>
+    <ul class="recommend">
+        <li><img src="./images/recommend1.png" alt=""><div class="price"><p><a href="#">特惠推荐</a></p><p>我猜得到</p><button class="add-cart-btn" data-name="特惠礼包" data-price="99">抢购</button></div></li>
+        <li><img src="./images/recommend2.png" alt=""><div class="price"><p><a href="#">爆款推荐</a></p><p>人气好物</p><button class="add-cart-btn" data-name="爆款组合" data-price="129">加入购物车</button></div></li>
+        <li><img src="./images/recommend3.png" alt=""><div class="price"><p><a href="#">节日礼品</a></p><p>一站买全</p><button class="add-cart-btn" data-name="节日礼品包" data-price="199">加入购物车</button></div></li>
+        <li><img src="./images/recommend4.png" alt=""><div class="price"><p><a href="#">鲜花园艺</a></p><p>仪式感生活</p><button class="add-cart-btn" data-name="鲜花礼盒" data-price="88">加入购物车</button></div></li>
+    </ul>
+</div>
+
+<!-- 热门品牌 -->
+<div class="brand">
+    <div class="wrapper">
+        <div class="title"><h3>热门品牌</h3><p>国际经典 品质认证</p><div class="jiantou"><span id="brandLeft"><i class="fas fa-arrow-left"></i></span><span id="brandRight"><i class="fas fa-arrow-right"></i></span></div></div>
+        <ul id="brandList">
+            <li><img src="./images/hot1.png" alt=""></li>
+            <li><img src="./images/hot2.png" alt=""></li>
+            <li><img src="./images/hot3.png" alt=""></li>
+            <li><img src="./images/hot4.png" alt=""></li>
+            <li><img src="./images/hot5.png" alt=""></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 生鲜 + 服装 动态商品 -->
+<div class="fresh wrapper">
+    <div class="title">
+        <h3>生鲜</h3>
+        <ul>
+        <li><a href="#">热门</a></li>
+        <li><a href="#">蔬菜</a></li>
+        <li><a href="#">水果</a></li>
+        <li><a href="#">海鲜</a></li>
+        <li><a href="#">肉禽蛋</a></li>
+        <li><a href="#">零食</a></li>
+        <li><a href="#">饮料</a></li>
+        </ul>
+        <a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="content">
+        <div class="left"><img src="./images/fresh_left.png" alt=""></div>
+        <div class="right"><ul id="freshGoods">
+        </ul>
+    </div>
+</div>
+    <div class="title">
+        <h3>服装</h3>
+        <ul>
+        <li><a href="#">女装</a></li>
+        <li><a href="#">男装</a></li>
+        <li><a href="#">内衣</a></li>
+        <li><a href="#">鞋包配饰</a></li>
+        <li><a href="#">箱包</a></li>
+        <li><a href="#">奢侈品</a></li>
+        </ul>
+        <a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="content">
+        <div class="left"><img src="./images/colthes_left.png" alt=""></div>
+        <div class="right"><ul id="clothGoods">
+        </ul>
+    </div>
+</div>
+        <!-- 餐厨板块 -->
+    <div class="title">
+        <h3>餐厨</h3>
+        <ul>
+            <li><a href="#">热门</a></li>
+            <li><a href="#">厨具</a></li>
+            <li><a href="#">水具</a></li>
+            <li><a href="#">灯具</a></li>
+            <li><a href="#">五金</a></li>
+            <li><a href="#">家装材料</a></li>
+            <li><a href="#">居家好物</a></li>
+        </ul>
+        <a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="content">
+        <div class="left"><img src="./images/kitchen_left.png" alt="餐厨专场"></div>
+        <div class="right"><ul id="kitchenGoods"></ul></div>
+    </div>
+
+    <!-- 居家板块 -->
+    <div class="title">
+        <h3>居家</h3>
+        <ul>
+            <li><a href="#">热门</a></li>
+            <li><a href="#">家纺</a></li>
+            <li><a href="#">创意礼品</a></li>
+            <li><a href="#">生活日用</a></li>
+            <li><a href="#">个人佩饰</a></li>
+        </ul>
+        <a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="content">
+        <div class="left"><img src="./images/home_left.png" alt="居家好物"></div>
+        <div class="right"><ul id="homeGoods"></ul></div>
+    </div>
+</div>
+
+<!-- 最新专题 -->
+<div class="topic wrapper">
+    <div class="title"><h3>最新专题</h3><a class="all" href="#">查看全部 <i class="fas fa-arrow-right"></i></a></div>
+    <ul>
+        <li><img src="./images/topic1.png" alt=""><div><span><i class="far fa-thumbs-up"></i> <i>1220</i></span><span><i class="far fa-eye"></i> <i>1800</i></span><span><i class="far fa-comment"></i> <i>246</i></span></div></li>
+        <li><img src="./images/topic2.png" alt=""><div><span><i class="far fa-thumbs-up"></i> <i>2100</i></span><span><i class="far fa-eye"></i> <i>3500</i></span><span><i class="far fa-comment"></i> <i>520</i></span></div></li>
+        <li><img src="./images/topic3.png" alt=""><div><span><i class="far fa-thumbs-up"></i> <i>980</i></span><span><i class="far fa-eye"></i> <i>1420</i></span><span><i class="far fa-comment"></i> <i>176</i></span></div></li>
+    </ul>
+</div>
+
+<!-- 底部 -->
+<div class="footer">
+    <div class="wrapper">
+        <div class="service"><ul><li><h5>价格亲民</h5></li><li><h5>物流快捷</h5></li><li><h5>品质新鲜</h5></li><li><h5>售后无忧</h5></li></ul></div>
+        <div class="help">
+            <dl><dt>购物指南</dt><dd><a href="#">购物流程</a></dd><dd><a href="#">支付方式</a></dd></dl>
+            <dl><dt>配送方式</dt><dd><a href="#">配送运费</a></dd><dd><a href="#">配送范围</a></dd></dl>
+            <dl><dt>关于我们</dt><dd><a href="#">平台规则</a></dd><dd><a href="#">联系我们</a></dd></dl>
+            <dl><dt>售后服务</dt><dd><a href="#">售后政策</a></dd><dd><a href="#">退款说明</a></dd></dl>
+            <dl><dt>服务热线</dt><dd><a href="#">在线客服 <i class="fas fa-headset"></i></a></dd><dd><a href="#">400-0000-000</a></dd></dl>
+            <div class="right"><ul><li><img src="./images/wechat.png" alt=""><p>微信公众号</p></li><li><img src="./images/app.png" alt=""><p>APP下载</p></li></ul></div>
+        </div>
+        <div class="copyright"><p><a href="#">关于我们</a> | <a href="#">帮助中心</a> | <a href="#">售后服务</a> | <a href="#">配送与验收</a> | <a href="#">商务合作</a></p><p><a href="#">@CopyRight © 小兔鲜儿 新鲜生活</a></p></div>
+    </div>
+</div>
+
+<script>
+    // 所有 JavaScript 逻辑
+    (function() {
+        // 轮播图
+        const slides = document.querySelectorAll('#bannerPic li');
+        const dots = document.querySelectorAll('#dots li');
+        const prev = document.getElementById('prevBtn');
+        const next = document.getElementById('nextBtn');
+        let current = 0;
+        let interval;
+        function showSlide(index) {
+            slides.forEach((s, i) => s.classList.toggle('active', i === index));
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+            current = index;
+        }
+        function nextSlide() { showSlide((current + 1) % slides.length); }
+        function prevSlide() { showSlide((current - 1 + slides.length) % slides.length); }
+        function startAuto() { if (interval) clearInterval(interval); interval = setInterval(nextSlide, 4000); }
+        if (prev && next) {
+            prev.addEventListener('click', () => { prevSlide(); startAuto(); });
+            next.addEventListener('click', () => { nextSlide(); startAuto(); });
+            dots.forEach((dot, idx) => dot.addEventListener('click', () => { showSlide(idx); startAuto(); }));
+            startAuto();
+        }
+        // 品牌滚动
+        const brandList = document.getElementById('brandList');
+        const brandLeft = document.getElementById('brandLeft');
+        const brandRight = document.getElementById('brandRight');
+        if (brandList && brandLeft && brandRight) {
+            brandLeft.addEventListener('click', () => { brandList.scrollLeft -= 240; });
+            brandRight.addEventListener('click', () => { brandList.scrollLeft += 240; });
+        }
+        // 购物车
+        let cartNum = 22;
+        const cartCountSpan = document.getElementById('cartCount');
+        function updateCart(addedNum = 1) {
+            cartNum += addedNum;
+            if (cartCountSpan) cartCountSpan.innerText = cartNum;
+        }
+        function bindAddToCartButtons() {
+            document.querySelectorAll('.add-cart-btn').forEach(btn => {
+                if (btn.dataset.bound === 'true') return;
+                btn.dataset.bound = 'true';
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const name = btn.getAttribute('data-name') || '商品';
+                    updateCart(1);
+                    alert(`✅ 已将「${name}」加入购物车`);
+                });
+            });
+        }
+        bindAddToCartButtons();
+        // 动态商品数据
+        const freshData = [
+            { img: './images/fresh1.png', name: '双味千层手抓饼烤肉组合', price: 89.99 },
+            { img: './images/fresh2.png', name: '云南甘蔗慢熬红糖馒头', price: 9.99 },
+            { img: './images/fresh3.png', name: '海盐小圆饼', price: 588 },
+            { img: './images/fresh4.png', name: '奶油小面包', price: 69 },
+            { img: './images/fresh5.png', name: '秘制外皮五福摩提大福', price: 39.99 },
+            { img: './images/fresh6.png', name: '水果面膜韩国蜂蜜柚子茶', price: 89.99 },
+            { img: './images/fresh7.png', name: '浓情比利时巧克力礼盒', price: 120 },
+            { img: './images/fresh8.png', name: '抹茶蛋糕小蛋糕礼盒', price: 60 }
+        ];
+        const clothesData = [
+            { img: './images/clothes1.png', name: '双层千层手抓饼', price: 719 },
+            { img: './images/clothes2.png', name: '云南甘蔗慢熬红糖馒头', price: 699 },
+            { img: './images/clothes3.png', name: '海盐小圆饼', price: 229 },
+            { img: './images/clothes4.png', name: '奶油小面包', price: 14.5 },
+            { img: './images/clothes5.png', name: '秘制外皮五福摩提大福', price: 179 },
+            { img: './images/clothes6.png', name: '水果面膜韩国蜂蜜柚子茶', price: 565 },
+            { img: './images/clothes7.png', name: '浓情比利时巧克力礼盒', price: 99.99 },
+            { img: './images/clothes8.png', name: '抹茶奶油小蛋糕礼盒', price: 269 }
+        ];
+        // 餐厨数据
+        const kitchenData = [
+            { img: './images/kitchen1.png', name: '双味千层手抓饼烤肉组合', price: 210.00 },
+            { img: './images/kitchen2.png', name: '云南甘蔗慢熬红糖馒头', price: 32.99 },
+            { img: './images/kitchen3.png', name: '海盐小圆饼', price: 30.00 },
+            { img: './images/kitchen4.png', name: '奶油小面包', price: 69.99 },
+            { img: './images/kitchen5.png', name: '秘制外皮五福摩提大福', price: 99.99 },
+            { img: './images/kitchen6.png', name: '水果面膜韩国蜂蜜柚子茶', price: 35.00 },
+            { img: './images/kitchen7.png', name: '浓情比利时巧克力礼盒', price: 12.99 },
+            { img: './images/kitchen8.png', name: '抹茶奶油小蛋糕礼盒', price: 56.99 }
+        ];
+
+// 居家数据
+        const homeData = [
+            { img: './images/home1.png', name: '双味千层手抓饼烤肉组合', price: 59.00 },
+            { img: './images/home2.png', name: '云南甘蔗慢熬红糖馒头', price: 39.00 },
+            { img: './images/home3.png', name: '海盐小圆饼', price: 19.90 },
+            { img: './images/home4.png', name: '奶油小面包', price: 29.90 },
+            { img: './images/home5.png', name: '秘制外皮五福摩提大福', price: 29.90 },
+            { img: './images/home6.png', name: '水果面膜韩国蜂蜜柚子茶', price: 79.00 },
+            { img: './images/home7.png', name: '浓情比利时巧克力礼盒', price: 29.00 },
+            { img: './images/home8.png', name: '抹茶奶油小蛋糕礼盒', price: 39.00 }
+        ];
+
+        function renderGoods(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = data.map(item => `
+                <li>
+                    <img src="${item.img}" alt="${item.name}">
+                    <a href="#">${item.name}</a> 
+                    <span><i>￥</i>${item.price.toFixed(2)}</span>
+                    <button class="add-cart-btn" data-name="${item.name}" data-price="${item.price}">加入购物车</button>
+                </li>
+            `).join('');
+            bindAddToCartButtons();
+        }
+        renderGoods('freshGoods', freshData);
+        renderGoods('clothGoods', clothesData);
+        // 渲染餐厨和居家
+        renderGoods('kitchenGoods', kitchenData);
+        renderGoods('homeGoods', homeData);
+        // 搜索提示
+        const searchInput = document.querySelector('.search input');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') alert(`搜索功能建设中，您搜索了：“${searchInput.value}”`);
+            });
+        }
+    })();
+</script>
+</body>
+</html>
